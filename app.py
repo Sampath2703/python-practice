@@ -1,5 +1,5 @@
 import streamlit as st
-st.title("Student Login")
+st.title("Media Platform")
 
 login,signup = st.tabs(
     ["Login", "Signup"]

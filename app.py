@@ -41,35 +41,45 @@ def dashboard():
             st.write(url)
             st.write("File Uploaded to cloudinary successfully")
             
-    elif option == "View Files":
-
-        st.subheader("Uploaded Files")
-
-        cursor.execute("SELECT * FROM media_files")
-
-        data = cursor.fetchall()
-
-        for row in data:
-
-            file_name = row[1]
-
-            file_url = row[2]
-
-            file_type = row[3]
-
-            st.write(file_name)
-
-            if "image" in file_type:
-                st.image(file_url)
-
-            elif "video" in file_type:
-                st.video(file_url)
+    
 
     elif opt == "Logout":
         st.session_state.user = None
         st.success("Logged out successfully")
         st.rerun()
-    
+
+        
+    elif opt == "View Files":
+
+        st.header("Uploaded Files")
+
+        cursor.execute("SELECT * FROM media_files")
+
+        data = cursor.fetchall()
+
+        if len(data) == 0:
+
+            st.warning("No Records Found")
+
+        else:
+
+            for row in data:
+
+                file_name = row[1]
+
+                file_url = row[2]
+
+                file_type = row[3]
+
+                st.write("File Name:", file_name)
+
+                if "image" in file_type:
+
+                    st.image(file_url)
+
+                elif "video" in file_type:
+
+                    st.video(file_url)
 
 def login_function():
     st.header("Login")

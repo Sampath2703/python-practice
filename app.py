@@ -5,10 +5,6 @@ from db_c import cursor, conn
 
 st.title("Media Platform")
 
-login,signup = st.tabs(
-    ["Login", "Signup"]
-
-)
 
 cloudinary.config(
     cloud_name = st.secrets["cloud_name"],

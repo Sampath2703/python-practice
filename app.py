@@ -94,7 +94,7 @@ def dashboard():
 
         st.subheader("All Uploaded Files")
 
-        cursor.execute("SELECT * FROM media_files")
+        cursor.execute("SELECT * FROM files")
 
         data = cursor.fetchall()
 

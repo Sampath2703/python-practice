@@ -17,41 +17,82 @@ if "user" not in st.session_state:
     st.session_state.user = None
 
 def dashboard():
+
     st.sidebar.success("Welcome to Dashboard")
-    opt = st.sidebar.selectbox("Select an Option", ["Upload File", "View Files", "Logout"])
-    st.header("dashboard")
+
+    opt = st.sidebar.selectbox(
+        "Select an Option",
+        ["Upload File", "View Files", "Logout"]
+    )
+
+    st.header("Dashboard")
+
+    # ---------------- UPLOAD FILE ---------------- #
 
     if opt == "Upload File":
+
         st.subheader("Upload Your Media Files")
-        uploaded_file = st.file_uploader("Choose a file", type=["jpg", "jpeg", "png", "mp4", "mp3","pdf"])
-        if uploaded_file:
+
+        uploaded_file = st.file_uploader(
+            "Choose a file",
+            type=["jpg", "jpeg", "png", "mp4", "mp3", "pdf"]
+        )
+
+        if uploaded_file is not None:
+
             st.write(uploaded_file.name)
-            st.write(uploaded_file.type )
 
-        if "image" in uploaded_file.type:
-            st.image(uploaded_file)
-        elif "video" in uploaded_file.type:
-            st.video(uploaded_file)
-        elif "audio" in uploaded_file.type:
-            st.audio(uploaded_file)
+            st.write(uploaded_file.type)
 
-        if st.button("Upload file to cloudinary"):
-            upload_dict_obj = cloudinary.uploader.upload(uploaded_file, resourse_type="auto")
-            url = upload_dict_obj["secure_url"]
-            st.write(url)
-            st.write("File Uploaded to cloudinary successfully")
-            
-    
+            # Preview File
 
-    elif opt == "Logout":
-        st.session_state.user = None
-        st.success("Logged out successfully")
-        st.rerun()
+            if "image" in uploaded_file.type:
 
-        
+                st.image(uploaded_file)
+
+            elif "video" in uploaded_file.type:
+
+                st.video(uploaded_file)
+
+            elif "audio" in uploaded_file.type:
+
+                st.audio(uploaded_file)
+
+            # Upload Button
+
+            if st.button("Upload File to Cloudinary"):
+
+                upload_dict_obj = cloudinary.uploader.upload(
+                    uploaded_file,
+                    resource_type="auto"
+                )
+
+                url = upload_dict_obj["secure_url"]
+
+                file_name = uploaded_file.name
+
+                file_type = uploaded_file.type
+
+                # Insert Into Database
+
+                query = """
+                INSERT INTO media_files(file_name,file_url,file_type)
+                VALUES(%s,%s,%s)
+                """
+
+                values = (file_name, url, file_type)
+
+                cursor.execute(query, values)
+
+                conn.commit()
+
+                st.success("File Uploaded Successfully")
+
+    # ---------------- VIEW FILES ---------------- #
+
     elif opt == "View Files":
 
-        st.header("Uploaded Files")
+        st.subheader("All Uploaded Files")
 
         cursor.execute("SELECT * FROM media_files")
 
@@ -80,6 +121,22 @@ def dashboard():
                 elif "video" in file_type:
 
                     st.video(file_url)
+
+                elif "audio" in file_type:
+
+                    st.audio(file_url)
+
+                else:
+
+                    st.link_button("Open File", file_url)
+            
+    
+
+    elif opt == "Logout":
+        st.session_state.user = None
+        st.success("Logged out successfully")
+        st.rerun()
+
 
 def login_function():
     st.header("Login")

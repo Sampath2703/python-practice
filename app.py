@@ -39,7 +39,28 @@ def dashboard():
             url = upload_dict_obj["secure_url"]
             st.write(url)
             st.write("File Uploaded to cloudinary successfully")
+    elif option == "View Files":
 
+        st.subheader("Uploaded Files")
+
+        cursor.execute("SELECT * FROM media_files")
+
+        data = cursor.fetchall()
+
+        for row in data:
+
+            file_name = row[1]
+
+            file_url = row[2]
+
+            file_type = row[3]
+
+            st.write(file_name)
+
+            if "image" in file_type:
+                st.image(file_url)
+
+            elif "video" in file_type:
 
     elif opt == "Logout":
         st.session_state.user = None

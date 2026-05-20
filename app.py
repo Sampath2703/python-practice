@@ -42,7 +42,7 @@ def dashboard():
     elif opt == "Logout":
         st.session_state.user = None
         st.success("Logged out successfully")
-        st.return()
+        st.rerun()
     
 
 def login_function():
@@ -60,7 +60,7 @@ def login_function():
             user = cursor.fetchone()
             st.session_state.user = loggedin_user
             st.write("Login successful")
-            st.return()
+            st.rerun()
         
 
 def signup_function():

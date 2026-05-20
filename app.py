@@ -60,7 +60,7 @@ def login_function():
             values = (email, password)
             cursor.execute(query, values)
             user = cursor.fetchone()
-            st.session_state.user = loggedin_user
+            st.session_state.user = user
             st.write("Login successful")
             st.rerun()
         

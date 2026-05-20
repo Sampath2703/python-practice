@@ -88,13 +88,10 @@ def dashboard():
         else:
 
             for row in data:
-
-                file_name = row[1]
-
-                file_url = row[2]
-
-                file_type = row[3]
-
+                file_name = row["file_name"]
+                file_url = row["file_url"]
+                file_type = row["file_type"]
+                
                 st.write("File Name:", file_name)
 
                 if "image" in file_type:

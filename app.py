@@ -52,8 +52,8 @@ def login_function():
 
     with st.form("Loing_Form"):
 
-        st.text_input("Email")
-        st.text_input("Password", type="password")
+        email =st.text_input("Email")
+        password = st.text_input("Password", type="password")
         btn = st.form_submit_button("Login")
         if btn:
             query = "SELECT * FROM users WHERE email = %s AND password = %s"

@@ -1,3 +1,4 @@
+from click import option
 import cloudinary
 import cloudinary.uploader
 import streamlit as st
@@ -39,6 +40,7 @@ def dashboard():
             url = upload_dict_obj["secure_url"]
             st.write(url)
             st.write("File Uploaded to cloudinary successfully")
+            
     elif option == "View Files":
 
         st.subheader("Uploaded Files")

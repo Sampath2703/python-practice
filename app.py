@@ -63,6 +63,7 @@ def dashboard():
                 st.image(file_url)
 
             elif "video" in file_type:
+                st.video(file_url)
 
     elif opt == "Logout":
         st.session_state.user = None

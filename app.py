@@ -76,7 +76,7 @@ def dashboard():
                 # Insert Into Database
 
                 query = """
-                INSERT INTO media_files(file_name,file_url,file_type)
+                INSERT INTO files(file_name,file_url,file_type)
                 VALUES(%s,%s,%s)
                 """
 

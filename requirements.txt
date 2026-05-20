@@ -1,2 +1,4 @@
 streamlit
 mysql-connector-python
+cloudinary
+cloudinary.uploader

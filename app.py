@@ -10,8 +10,14 @@ login,signup = st.tabs(
 
 )
 
-cursor.execute("show tables")
-dbs = cursor.fetchall()
+cloudinary.config(
+    cloud_name = st.secrets["cloud_name"],
+    api_key = st.secrets["api_key"],
+    api_secret = st.secrets["api_secret"]
+)
+
+if "user" not in st.session_state:
+    st.session_state.user = None
 
 def dashboard():
     st.sidebar.success("Welcome to Dashboard")

@@ -10,7 +10,6 @@ conn = mysql.connector.connect(
 cursor = conn.cursor(dictionary=True)
 print("connected successfully")
 
-cursor.execute("""
 
 
 # USERS TABLE

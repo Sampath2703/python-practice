@@ -1,12 +1,15 @@
 import streamlit as st
-
 from db_c import cursor, conn
+
 st.title("Media Platform")
 
 login,signup = st.tabs(
     ["Login", "Signup"]
 
 )
+
+cursor.execute("show tables")
+dbs = cursor.fetchall()
 
 
 with login:

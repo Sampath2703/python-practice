@@ -17,34 +17,23 @@ if "user" not in st.session_state:
     st.session_state.user = None
 
 def dashboard():
-
     st.sidebar.success("Welcome to Dashboard")
-
     opt = st.sidebar.selectbox(
         "Select an Option",
         ["Upload File", "View Files", "Logout"]
     )
-
     st.header("Dashboard")
-
-    # ---------------- UPLOAD FILE ---------------- #
-
     if opt == "Upload File":
-
         st.subheader("Upload Your Media Files")
-
         uploaded_file = st.file_uploader(
             "Choose a file",
             type=["jpg", "jpeg", "png", "mp4", "mp3", "pdf"]
         )
 
         if uploaded_file is not None:
-
             st.write(uploaded_file.name)
 
             st.write(uploaded_file.type)
-
-            # Preview File
 
             if "image" in uploaded_file.type:
 
@@ -57,8 +46,6 @@ def dashboard():
             elif "audio" in uploaded_file.type:
 
                 st.audio(uploaded_file)
-
-            # Upload Button
 
             if st.button("Upload File to Cloudinary"):
 
@@ -73,8 +60,6 @@ def dashboard():
 
                 file_type = uploaded_file.type
 
-                # Insert Into Database
-
                 query = """
                 INSERT INTO files(file_name,file_url,file_type)
                 VALUES(%s,%s,%s)
@@ -87,8 +72,6 @@ def dashboard():
                 conn.commit()
 
                 st.success("File Uploaded Successfully")
-
-    # ---------------- VIEW FILES ---------------- #
 
     elif opt == "View Files":
 

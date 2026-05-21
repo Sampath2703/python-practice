@@ -97,14 +97,17 @@ def dashboard():
                 if "image" in file_type:
 
                     st.image(file_url)
+                    st.write("File Type:", file_type)
 
                 elif "video" in file_type:
 
                     st.video(file_url)
+                    st.write("File Type:", file_type)
 
                 elif "audio" in file_type:
 
                     st.audio(file_url)
+                    st.write("File Type:", file_type)
 
                 else:
 
